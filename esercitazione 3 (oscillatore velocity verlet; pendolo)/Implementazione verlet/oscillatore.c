@@ -25,6 +25,7 @@ void v_verlet(Sistema *sist, Punto *p);
 void euler(Sistema *sist, Punto *p);
 void euler_cromer(Sistema *sist, Punto *p);
 double Energia(Sistema *sist, Punto *p);
+double err(Sistema *sist, Punto *p);
 
 int main(int argc, char *argv[])
 {
@@ -65,6 +66,7 @@ int main(int argc, char *argv[])
     sist.T+=sist.dt;
     integrazione(&sist, &p);
   }
+  err(&sist, &p);
 }
 
 double Energia(Sistema *sist, Punto *p)
@@ -99,4 +101,12 @@ void v_verlet(Sistema *sist, Punto *p)
   p->v0 += 0.5 * acc * sist->dt;
   double E = Energia(sist, p);
   printf("%lf %lf %lf %lf\n", sist->T, p->x0, p->v0, E);
+}
+
+double err(Sistema *sist, Punto *p){
+  double e_g=0;
+  double x_e = p->x0 * cos(sist->omega0) + (p->v0/sist->omega0) * sin(sist->omega0*sist->T);
+  double A = sqrt((p->x0*p->x0)+((p->v0*p->v0)/(sist->omega0*sist->omega0)));
+  e_g = (fabs(sist->x0-x_e))/A;
+  printf("%lf", e_g);
 }
