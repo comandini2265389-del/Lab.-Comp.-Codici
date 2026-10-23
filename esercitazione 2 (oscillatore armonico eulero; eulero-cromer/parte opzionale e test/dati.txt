@@ -1,0 +1,5 @@
+Le simulazioni di questa parte opzionale sono state eseguite con i seguenti dati (ponendo attenzione al fatto che dt < 1/omega0)
+
+
+dt      nsteps  stride  v0  x0  omega0
+0.05    1000    10      5   3   1

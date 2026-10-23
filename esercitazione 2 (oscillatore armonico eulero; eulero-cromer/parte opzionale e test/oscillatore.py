@@ -1,0 +1,60 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+x_e, y_e = np.loadtxt("eulero.dat", unpack=True, usecols=(0,1))
+x_ec, y_ec = np.loadtxt("eulero-cromer.dat", unpack=True, usecols=(0,1))
+
+fig, axes = plt.subplots(1, 2, figsize=(10,3.5))
+
+axes[0].grid()
+axes[0].plot(x_e, y_e, 'o', label="Eulero")
+axes[0].set_xlabel("t/s")
+axes[0].set_ylabel("s/m")
+axes[0].set_title("Traiettoria - Eulero")
+axes[0].legend()
+
+axes[1].grid()
+axes[1].plot(x_ec, y_ec, 'o', label="Eulero-Cromer", color='orange')
+axes[1].set_xlabel("t/s")
+axes[1].set_ylabel("s/m")
+axes[1].set_title("Traiettoria - Eulero-Cromer")
+axes[1].legend()
+
+fig.tight_layout()
+plt.savefig("confronto-traiettorie.pdf")
+plt.show()
+
+s0, v0 = np.loadtxt("eulero.dat", unpack=True, usecols=(1,2))
+s1, v1 = np.loadtxt("eulero-cromer.dat", unpack=True, usecols=(1,2))
+
+fig, axes = plt.subplots(1, 2, figsize=(10,3.5))
+
+axes[0].grid()
+axes[0].plot(s0, v0, 'o', label="Eulero")
+axes[0].set_xlabel("s/m")
+axes[0].set_ylabel("v/ms^-1")
+axes[0].set_title("Spazio delle Fasi - Eulero")
+axes[0].legend()
+
+axes[1].grid()
+axes[1].plot(s1, v1, 'o', label="Eulero-Cromer", color='orange')
+axes[1].set_xlabel("s/m")
+axes[1].set_ylabel("v/ms^-1")
+axes[1].set_title("Spazio delle Fasi - Eulero-Cromer")
+axes[1].legend()
+
+fig.tight_layout()
+plt.savefig("confronto-spazio-fasi.pdf")
+plt.show()
+
+E0=np.loadtxt("eulero.dat",unpack=True,usecols=(3))
+E1=np.loadtxt("eulero-cromer.dat",unpack=True,usecols=(3))
+plt.grid()
+plt.plot(x_e,E0,'o',label="Energia Eulero")
+plt.plot(x_e,E1,'o',label="Energia Eulero-Cromer")
+plt.legend()
+plt.xlabel("t/s")
+plt.ylabel("E/J")
+plt.title("Confronto energie")
+plt.savefig("confronto-energie.pdf")
+plt.show()
