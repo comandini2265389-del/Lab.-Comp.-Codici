@@ -3,6 +3,8 @@
 #include <math.h>
 #include <string.h>
 
+#define m 1
+
 typedef struct
 {
   double v0;
@@ -89,5 +91,10 @@ void euler_cromer(Sistema *sist, Punto *p)
 
 void v_verlet(Sistema *sist, Punto *p)
 {
-  //
+  double acc=0;
+  p->v0 += 0.5 * -(sist->omega0 * sist->omega0) * sist->dt;
+  p->x0 += p->v0 * sist->dt;
+  //ipotizzando che la massa valga 1 la forza corrisponde (numericamente) all'accelerazione
+  acc = (-(sist->omega0 * sist->omega0) * p-> x0)/m;
+  p->v0 += 0.5 * acc * sist->dt;
 }
