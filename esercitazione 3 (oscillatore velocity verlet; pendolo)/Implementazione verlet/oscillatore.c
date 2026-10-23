@@ -97,4 +97,6 @@ void v_verlet(Sistema *sist, Punto *p)
   //ipotizzando che la massa valga 1 la forza corrisponde (numericamente) all'accelerazione
   acc = (-(sist->omega0 * sist->omega0) * p-> x0)/m;
   p->v0 += 0.5 * acc * sist->dt;
+  double E = Energia(sist, p);
+  printf("%lf %lf %lf %lf\n", sist->T, p->x0, p->v0, E);
 }
