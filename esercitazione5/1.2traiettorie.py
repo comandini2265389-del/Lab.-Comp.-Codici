@@ -1,0 +1,43 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+x1,y1=np.loadtxt("1.2condizione1.dat", unpack=True, usecols=(0,1))
+x2,y2=np.loadtxt("1.2condizione2.dat", unpack=True, usecols=(0,1))
+x3,y3=np.loadtxt("1.2condizione3.dat", unpack=True, usecols=(0,1))
+x4,y4=np.loadtxt("1.2condizione4.dat", unpack=True, usecols=(0,1))
+
+plt.grid()
+plt.title("Traiettorie in funzione dei dati iniziali; stride=3; nsteps=10000, dt=0.01")
+plt.xlabel("Tempo [s]")
+plt.ylabel("Traiettoria [m]")
+plt.plot(x1,y1, 'o', label="$x_0=4; v_0=0$;" r"$\quad \mu=0.1$")
+plt.legend()
+plt.savefig("1.2traiettoriacondizione1.pdf")
+plt.show()
+
+plt.grid()
+plt.title("Traiettorie in funzione dei dati iniziali; stride=3; nsteps=10000; dt=0.01")
+plt.xlabel("Tempo [s]")
+plt.ylabel("Traiettoria [m]")
+plt.plot(x2,y2, 'o', label="$x_0=4; v_0=0$;" r"$\quad \mu=1$")
+plt.legend()
+plt.savefig("1.2traiettoriacondizione2.pdf")
+plt.show()
+
+plt.grid()
+plt.title("Traiettorie in funzione dei dati iniziali; stride=3; nsteps=10000; dt=0.01")
+plt.xlabel("Tempo [s]")
+plt.ylabel("Traiettoria [m]")
+plt.plot(x3,y3, 'o', label="$x_0=4; v_0=0$;" r"$\quad \mu=5$")
+plt.legend()
+plt.savefig("1.2traiettoriacondizione3.pdf")
+plt.show()
+
+plt.grid()
+plt.title("Traiettorie in funzione dei dati iniziali; stride=3; nsteps=100000; dt=0.005")
+plt.xlabel("Tempo [s]")
+plt.ylabel("Traiettoria [m]")
+plt.plot(x4,y4, 'o', label="$x_0=4; v_0=0$;" r"$\quad \mu=20$")
+plt.legend()
+plt.savefig("1.2traiettoriecondizione4.pdf")
+plt.show()
