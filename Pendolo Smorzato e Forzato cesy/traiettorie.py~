@@ -1,0 +1,10 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+x1,y1=np.loadtxt("09.dat",unpack=True,usecols=(0,1))
+Td=x1/(3*np.pi)
+plt.grid()
+plt.xlabel(r'$\T_{D}$')
+plt.ylabel(r'$\Theta$')
+plt.plot(Td,y1, '.')
+plt.show()

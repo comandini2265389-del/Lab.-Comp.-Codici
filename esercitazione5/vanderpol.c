@@ -18,7 +18,7 @@ typedef struct
 } Sistema;
 
 double Energia(Sistema *sist, Punto *p);
-double zeri(Sistema *sist, Punto *p, double theta, double ptheta);
+double zeri(Sistema *sist, Punto *p, double x, double px);
 void stampa_periodi(Punto *p,double x_iniziale, double periodo);
 void derivate_oscillatore(double t,Punto *p, Punto *y, Sistema *sist, Punto *deriv);
 double rk4(Sistema *sist, Punto *p, void (*f)(double,Punto*, Punto*, Sistema*, Punto*));
