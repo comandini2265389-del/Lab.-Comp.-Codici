@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        fprintf(stderr, "Uso: %s <file_output_pendolo.txt>\n", argv[1]);
+        exit(1);
+    }
+
+    FILE *file = fopen(argv[1], "r");
+    if (!file) {
+        perror("Errore nell'apertura del file");
+        exit(1);
+    }
+
+    double t, theta, omega, E;
+    double t_prev = 0, theta_prev = 0;
+    int primo_punto = 1;
+    
+    double t_zeri[1000];
+    int count_zeri = 0;
+
+    // Legge riga per riga: t, theta, omega, E
+    while (fscanf(file, "%lf %lf %lf %lf", &t, &theta, &omega, &E) == 4) {
+        if (primo_punto) {
+            t_prev = t;
+            theta_prev = theta;
+            primo_punto = 0;
+            continue;
+        }
+
+        // Rileva un attraversamento dello zero (cambio di segno di theta)
+        if (theta_prev * theta < 0.0) {
+            // Interpolazione lineare per trovare l'istante esatto dello zero
+            double t_zero = t_prev - theta_prev * (t - t_prev) / (theta - theta_prev);
+            
+            if (count_zeri < 1000) {
+                t_zeri[count_zeri++] = t_zero;
+            }
+        }
+
+        t_prev = t;
+        theta_prev = theta;
+    }
+
+    fclose(file);
+
+    if (count_zeri < 2) {
+        printf("Non ci sono abbastanza inversioni di segno per calcolare il periodo.\n");
+        return 0;
+    }
+
+    printf("Trovati %d passaggi per lo zero.\n", count_zeri);
+    printf("----------------------------------------\n");
+
+    // Il periodo completo corrisponde all'intervallo tra due zeri con la stessa direzione di moto 
+    // (cioè distanti 2 passaggi per lo zero consecutivi nello stesso verso, oppure mediando).
+    // Qui calcoliamo la differenza tra zeri alternati (t_i+2 - t_i) che equivale a un intero periodo T.
+    double somma_periodi = 0;
+    int num_periodi = 0;
+
+    for (int i = 0; i < count_zeri - 2; i += 2) {
+        double T_stimato = t_zeri[i+2] - t_zeri[i];
+        somma_periodi += T_stimato;
+        num_periodi++;
+        printf("Periodo stimato dal ciclo %d: %lf s\n", num_periodi, T_stimato);
+    }
+
+    if (num_periodi > 0) {
+        double T_medio = somma_periodi / num_periodi;
+        printf("----------------------------------------\n");
+        printf("Periodo medio stimato (T): %lf s\n", T_medio);
+    }
+
+    return 0;
+}
