@@ -1,0 +1,33 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+fig, axes = plt.subplots(2,2 figsize=(10, 3.5)
+
+omega1,theta_r1=np.loadtxt("p09.dat",unpack=True,usecols=(2,4))
+omega2,theta_r2=np.loadtxt("p107.dat",unpack=True,usecols=(2,4))
+omega3,theta_r3=np.loadtxt("p115.dat",unpack=True,usecols=(2,4))
+omega4,theta_r4=np.loadtxt("p115.dat",unpack=True,usecols=(2,4))
+
+axes[0][0].grid()
+axes[0][0].set_xlabel(r"$\Theta_r$")
+axes[0][0].set_ylabel(r"\omega")
+axes[0][0].plot(theta_r1,omega1,'.')
+
+plt.savefig("p09.png")
+plt.show()
+
+axes[0][1].grid()
+axes[0][1].set_xlabel(r"$\Theta_r$")
+axes[0][1].set_ylabel(r"\omega")
+axes[0][1].plot(theta_r2,omega2,'.')
+
+plt.savefig("p107.png")
+plt.show()
+
+axes[1][1].grid()
+axes[1][1].set_xlabel(r"$\Theta_r$")
+axes[1][1].set_ylabel(r"\omega")
+axes[1][1].plot(theta_r4,omega4,'.')
+
+plt.savefig("p135.png")
+plt.show()
